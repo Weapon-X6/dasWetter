@@ -1,13 +1,16 @@
 import React from 'react';
 import './App.css';
-import 'whatwg-fetch'
+import 'whatwg-fetch';
+import Plot from './Plot';
 
 const API_KEY = "02e46c6f8170accfb56f70b9f3ffd189";
 
 class App extends React.Component{
     state = {
         location: '',
-        data: {}
+        data: {},
+        dates: [],
+        temps: []
     };
 
     fetchData = (evt) => {
@@ -22,12 +25,22 @@ class App extends React.Component{
             .then(function(response){
                 return response.json()
             }).then( json => {
+                var list = json.list;
+                var dates = [];
+                var temps = [];
+                for (var i = 0; i < list.length; i++){
+                    dates.push(list[i].dt_txt);
+                    temps.push(list[i].main.temp);
+                } 
+
                 this.setState({
-                    data: json
+                    data: json,
+                    dates: dates,
+                    temps: temps
                 });
             }).catch(function(ex){
                 console.log('parsing failed', ex)
-            })
+            });
     };
 
     changeLocation = (evt) => {
@@ -58,6 +71,12 @@ class App extends React.Component{
                 <span className='temp'>{ currentTemp }</span>
                 <span className='temp-symbol'>°C</span>
             </p>
+            <h2>Forecast</h2>
+            <Plot 
+                xData={this.state.dates}
+                yData={this.state.temps}
+                type="scatter"
+            />
             </div>
         );
     }

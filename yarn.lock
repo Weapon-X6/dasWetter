@@ -2732,6 +2732,11 @@ picomatch@^2.2.3:
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
 
+plotly.js-dist@^2.9.0:
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/plotly.js-dist/-/plotly.js-dist-2.9.0.tgz#90027fc3f8fa763781a0cbdaebe903af66334931"
+  integrity sha512-CvzxfnKwXV4kiuBK12IOAPeG0EtTeL+K/Dax+1EwjdIxFJkvMKjnIlilonjydhS+Pcu9shuGiuAezhpmmYrDQA==
+
 postcss-calc@^8.2.0:
   version "8.2.3"
   resolved "https://registry.yarnpkg.com/postcss-calc/-/postcss-calc-8.2.3.tgz#53b95ce93de19213c2a5fdd71277a81690ef41d0"
