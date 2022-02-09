@@ -17,6 +17,9 @@ class Plot extends React.Component{
             }, {
             displayModeBar: false
             });
+        
+        document.getElementById('plot')
+            .on('plotly_click', this.props.onPlotClick)
     }
 
     componentDidMount(){

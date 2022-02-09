@@ -10,8 +10,20 @@ class App extends React.Component{
         location: '',
         data: {},
         dates: [],
-        temps: []
+        temps: [],
+        selected: {}
     };
+
+    onPlotClick = (data) => {
+        if (data.points) {
+            this.setState({
+                selected: {
+                    date: data.points[0].x,
+                    temp: data.points[0].y
+                }
+            });
+        }
+    }
 
     fetchData = (evt) => {
         evt.preventDefault();
@@ -36,7 +48,11 @@ class App extends React.Component{
                 this.setState({
                     data: json,
                     dates: dates,
-                    temps: temps
+                    temps: temps,
+                    selected: {
+                        date: '',
+                        temp: null
+                    }
                 });
             }).catch(function(ex){
                 console.log('parsing failed', ex)
@@ -67,16 +83,27 @@ class App extends React.Component{
                     />
                 </label>
             </form>
-            <p className="temp-wrapper">
-                <span className='temp'>{ currentTemp }</span>
-                <span className='temp-symbol'>°C</span>
-            </p>
-            <h2>Forecast</h2>
-            <Plot 
-                xData={this.state.dates}
-                yData={this.state.temps}
-                type="scatter"
-            />
+            {(this.state.data.list) ? (
+                <div className='wrapper'>
+                    { /* Render the current temperature if no specific date is selected */ }
+                    <p className="temp-wrapper">
+                        <span className='temp'>
+                            { this.state.selected.temp ? this.state.selected.temp : currentTemp }
+                        </span>
+                        <span className='temp-symbol'>°C</span>
+                        <span className='temp-date'>
+                            { this.state.selected.temp ? this.state.selected.date : '' }
+                        </span>
+                    </p>
+                    <h2>Forecast</h2>
+                    <Plot 
+                        xData={this.state.dates}
+                        yData={this.state.temps}
+                        onPlotClick={this.onPlotClick}
+                        type="scatter"
+                    />
+                </div>
+            ) : null}
             </div>
         );
     }
