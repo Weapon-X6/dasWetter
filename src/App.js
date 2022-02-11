@@ -1,7 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import './App.css';
 import 'whatwg-fetch';
+
 import Plot from './Plot';
+
+import {
+    changeLocation
+} from './actions';
 
 const API_KEY = "02e46c6f8170accfb56f70b9f3ffd189";
 
@@ -63,6 +70,7 @@ class App extends React.Component{
         this.setState({
             location: evt.target.value
         });
+        this.props.dispatch(changeLocation(evt.target.value));
     };
 
     render(){
@@ -78,7 +86,7 @@ class App extends React.Component{
                 <label>Let's find out the weather for
                     <input type="text" id='location'
                         placeholder={"City, Country"}
-                        value={this.state.location}
+                        value={this.props.location}
                         onChange={this.changeLocation}
                     />
                 </label>
@@ -109,4 +117,10 @@ class App extends React.Component{
     }
 }
 
-export default App;
+function mapStateToProps(state){
+    return{
+        location: state.location
+    };
+}
+
+export default connect(mapStateToProps)(App);
