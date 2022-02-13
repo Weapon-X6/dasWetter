@@ -8,11 +8,8 @@
     "plotly.js-dist": "^2.9.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-<<<<<<< HEAD
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
-=======
->>>>>>> 70dda0239c39b2379ad2d1a154754eab3c9e3404
     "whatwg-fetch": "^3.6.2"
   },
   "scripts": {

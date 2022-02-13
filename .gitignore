@@ -1,2 +1,9 @@
 node_modules
 .parcel-cache
+*.log*
+.idea
+.vscode
+.iml
+*.swp
+*.swo
+.DS_STORE
