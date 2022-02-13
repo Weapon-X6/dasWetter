@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import './App.css';
+<<<<<<< HEAD
 import 'whatwg-fetch';
 
 import Plot from './Plot';
@@ -9,12 +10,16 @@ import Plot from './Plot';
 import {
     changeLocation
 } from './actions';
+=======
+import 'whatwg-fetch'
+>>>>>>> 70dda0239c39b2379ad2d1a154754eab3c9e3404
 
 const API_KEY = "02e46c6f8170accfb56f70b9f3ffd189";
 
 class App extends React.Component{
     state = {
         location: '',
+<<<<<<< HEAD
         data: {},
         dates: [],
         temps: [],
@@ -32,6 +37,11 @@ class App extends React.Component{
         }
     }
 
+=======
+        data: {}
+    };
+
+>>>>>>> 70dda0239c39b2379ad2d1a154754eab3c9e3404
     fetchData = (evt) => {
         evt.preventDefault();
         //console.log(evt.target.location.value);
@@ -44,6 +54,7 @@ class App extends React.Component{
             .then(function(response){
                 return response.json()
             }).then( json => {
+<<<<<<< HEAD
                 var list = json.list;
                 var dates = [];
                 var temps = [];
@@ -64,13 +75,24 @@ class App extends React.Component{
             }).catch(function(ex){
                 console.log('parsing failed', ex)
             });
+=======
+                this.setState({
+                    data: json
+                });
+            }).catch(function(ex){
+                console.log('parsing failed', ex)
+            })
+>>>>>>> 70dda0239c39b2379ad2d1a154754eab3c9e3404
     };
 
     changeLocation = (evt) => {
         this.setState({
             location: evt.target.value
         });
+<<<<<<< HEAD
         this.props.dispatch(changeLocation(evt.target.value));
+=======
+>>>>>>> 70dda0239c39b2379ad2d1a154754eab3c9e3404
     };
 
     render(){
@@ -86,11 +108,16 @@ class App extends React.Component{
                 <label>Let's find out the weather for
                     <input type="text" id='location'
                         placeholder={"City, Country"}
+<<<<<<< HEAD
                         value={this.props.location}
+=======
+                        value={this.state.location}
+>>>>>>> 70dda0239c39b2379ad2d1a154754eab3c9e3404
                         onChange={this.changeLocation}
                     />
                 </label>
             </form>
+<<<<<<< HEAD
             {(this.state.data.list) ? (
                 <div className='wrapper'>
                     { /* Render the current temperature if no specific date is selected */ }
@@ -112,6 +139,12 @@ class App extends React.Component{
                     />
                 </div>
             ) : null}
+=======
+            <p className="temp-wrapper">
+                <span className='temp'>{ currentTemp }</span>
+                <span className='temp-symbol'>°C</span>
+            </p>
+>>>>>>> 70dda0239c39b2379ad2d1a154754eab3c9e3404
             </div>
         );
     }
