@@ -4,3 +4,17 @@ export function changeLocation(location){
         location: location
     };
 }
+
+export function setSelectedDate(date){
+    return {
+        type: 'SET_SELECTED_DATE',
+        date: date
+    };
+}
+
+export function setSelectedTemp(temp){
+    return {
+        type: 'SET_SELECTED_TEMP',
+        temp: temp
+    };
+}

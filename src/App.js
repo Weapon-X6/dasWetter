@@ -7,39 +7,36 @@ import 'whatwg-fetch';
 import Plot from './Plot';
 
 import {
-    changeLocation
+    changeLocation,
+    setSelectedDate,
+    setSelectedTemp
 } from './actions';
 
 const API_KEY = "02e46c6f8170accfb56f70b9f3ffd189";
 
 class App extends React.Component{
     state = {
-        location: '',
         data: {},
         dates: [],
-        temps: [],
-        selected: {}
+        temps: []
     };
 
     onPlotClick = (data) => {
         if (data.points) {
-            this.setState({
-                selected: {
-                    date: data.points[0].x,
-                    temp: data.points[0].y
-                }
-            });
+            const pointNumber = data.points[0]; 
+            this.props.dispatch(setSelectedDate(pointNumber.x));
+            this.props.dispatch(setSelectedTemp(pointNumber.y));
         }
     }
 
     fetchData = (evt) => {
         evt.preventDefault();
-        //console.log(evt.target.location.value);
-        let location = encodeURIComponent(this.state.location);
+
+        let location = encodeURIComponent(this.props.location);
         let urlPrefix = 'http://api.openweathermap.org/data/2.5/forecast?q=';
         let urlSuffix = '&APPID=' + API_KEY + '&units=metric';
         let url = urlPrefix + location + urlSuffix;
-
+        
         fetch(url)
             .then(function(response){
                 return response.json()
@@ -56,26 +53,22 @@ class App extends React.Component{
                     data: json,
                     dates: dates,
                     temps: temps,
-                    selected: {
-                        date: '',
-                        temp: null
-                    }
                 });
+
+                this.props.dispatch(setSelectedDate(''));
+                this.props.dispatch(setSelectedTemp(null));
             }).catch(function(ex){
                 console.log('parsing failed', ex)
             });
     };
 
     changeLocation = (evt) => {
-        this.setState({
-            location: evt.target.value
-        });
         this.props.dispatch(changeLocation(evt.target.value));
     };
 
     render(){
         let currentTemp = 'Specify a location';
-        if (this.state.data.list){
+        if (this.state.data.list){           
             currentTemp = this.state.data.list[0].main.temp;
         }
 
@@ -83,7 +76,7 @@ class App extends React.Component{
             <div>
             <h1>das Wetter</h1>
             <form onSubmit={this.fetchData}>
-                <label>Let's find out the weather for
+                <label>Let's find out the weather for &nbsp;
                     <input type="text" id='location'
                         placeholder={"City, Country"}
                         value={this.props.location}
@@ -94,15 +87,12 @@ class App extends React.Component{
             {(this.state.data.list) ? (
                 <div className='wrapper'>
                     { /* Render the current temperature if no specific date is selected */ }
-                    <p className="temp-wrapper">
-                        <span className='temp'>
-                            { this.state.selected.temp ? this.state.selected.temp : currentTemp }
-                        </span>
-                        <span className='temp-symbol'>°C</span>
-                        <span className='temp-date'>
-                            { this.state.selected.temp ? this.state.selected.date : '' }
-                        </span>
-                    </p>
+                    {(this.props.selected.temp) ? (
+                        <p>The themperature on { this.props.selected.date } will be { this.props.selected.temp }°C</p>
+                    ) : (
+                        <p>The current temperature is { currentTemp }</p>
+                    )
+                    }  
                     <h2>Forecast</h2>
                     <Plot 
                         xData={this.state.dates}
@@ -119,7 +109,8 @@ class App extends React.Component{
 
 function mapStateToProps(state){
     return{
-        location: state.location
+        location: state.location,
+        selected: state.selected
     };
 }
 
