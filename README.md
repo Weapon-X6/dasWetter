@@ -16,7 +16,7 @@ $ yarn start
 ```
 
 
-![Screenshot](/assets/dasWetter.png?raw=true "App running")
+![Screenshot](https://github.com/Weapon-X6/dasWetter/blob/master/assets/dasWetter.PNG?raw=true "App running")
 
 
 ### Technologies
