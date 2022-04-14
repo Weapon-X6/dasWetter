@@ -88,9 +88,9 @@ class App extends React.Component{
                 <div className='wrapper'>
                     { /* Render the current temperature if no specific date is selected */ }
                     {(this.props.selected.temp) ? (
-                        <p>The themperature on { this.props.selected.date } will be { this.props.selected.temp }°C</p>
+                        <p>The temperature on <span className='date'>{ this.props.selected.date }</span> will be <span className='temperature'>{ this.props.selected.temp }°C</span></p>
                     ) : (
-                        <p>The current temperature is { currentTemp }</p>
+                        <p>The current temperature is <span className='temperature'>{ currentTemp }</span></p>
                     )
                     }  
                     <h2>Forecast</h2>

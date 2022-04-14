@@ -47,3 +47,10 @@ input {
   transform: translateX(-50%);
   color: rgba(0, 0, 0, 0.5);
 }
+
+.wrapper .date{
+    color: rgb(117, 116, 116);
+}
+.wrapper .temperature{
+     color: blue;
+}
