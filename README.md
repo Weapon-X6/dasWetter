@@ -16,6 +16,9 @@ $ yarn start
 ```
 
 
+![Screenshot](/assets/dasWetter.png?raw=true "App running")
+
+
 ### Technologies
 * React 17.0.2
 * React-dom 17.0.2
